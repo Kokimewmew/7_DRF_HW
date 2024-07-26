@@ -1,0 +1,40 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="type" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="6">
+            <item index="0" class="java.lang.String" itemvalue="coverage" />
+            <item index="1" class="java.lang.String" itemvalue="pytest" />
+            <item index="2" class="java.lang.String" itemvalue="pytest-cov" />
+            <item index="3" class="java.lang.String" itemvalue="pluggy" />
+            <item index="4" class="java.lang.String" itemvalue="packaging" />
+            <item index="5" class="java.lang.String" itemvalue="attrs" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="lesson_code.data_statistics.statistics.data_manager" />
+          <option value="str.is_correct_word" />
+          <option value="str.is_correct" />
+          <option value="utils.sort_data_executed" />
+          <option value="utils.get_data_from_json" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
