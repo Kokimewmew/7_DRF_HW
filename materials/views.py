@@ -17,6 +17,7 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     pagination_class = CustomPagination
 
+
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return CourseCountSerializer
@@ -31,9 +32,9 @@ class CourseViewSet(ModelViewSet):
         if self.action == 'create':
             self.permission_classes = (~IsModer, IsAuthenticated,)
         elif self.action in ['update', 'retrieve']:
-            self.permission_classes = (IsModer, IsAuthenticated | IsOwner,)
+            self.permission_classes = (IsAuthenticated | IsOwner,)
         elif self.action == 'destroy':
-            self.permission_classes = (~IsModer, IsAuthenticated | IsOwner,)
+            self.permission_classes = (IsAuthenticated | IsOwner,)
         return super().get_permissions()
 
     def perform_update(self, serializer):
@@ -49,10 +50,10 @@ class LessonCreateAPIView(CreateAPIView):
     permission_classes = (~IsModer, IsAuthenticated)
 
 
-def perform_create(self, serializer):
-    lesson = serializer.save()
-    lesson.owner = self.request.user
-    lesson.save()
+    def perform_create(self, serializer):
+        lesson = serializer.save()
+        lesson.owner = self.request.user
+        lesson.save()
 
 
 class LessonListAPIView(ListAPIView):
@@ -64,19 +65,19 @@ class LessonListAPIView(ListAPIView):
 class LessonRetrieveAPIView(RetrieveAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = (~IsModer, IsAuthenticated | IsOwner)
+    permission_classes = (IsAuthenticated | IsOwner)
 
 
 class LessonUpdateAPIView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = (~IsModer, IsAuthenticated | IsOwner)
+    permission_classes = (IsAuthenticated | IsOwner)
 
 
 class LessonDestroyAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = (~IsModer, IsAuthenticated | IsOwner)
+    permission_classes = ( IsAuthenticated | IsOwner)
 
 
 class SubscriptionCreateAPIView(APIView):
