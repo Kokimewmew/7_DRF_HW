@@ -17,7 +17,6 @@ class CourseViewSet(ModelViewSet):
     serializer_class = CourseSerializer
     pagination_class = CustomPagination
 
-
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return CourseCountSerializer
@@ -48,7 +47,6 @@ class LessonCreateAPIView(CreateAPIView):
     serializer_class = LessonSerializer
 
     permission_classes = (~IsModer, IsAuthenticated)
-
 
     def perform_create(self, serializer):
         lesson = serializer.save()
