@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -30,9 +31,9 @@ class CourseViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == 'create':
             self.permission_classes = (~IsModer, IsAuthenticated,)
-        elif self.action in ['update', 'retrieve']:
-            self.permission_classes = (IsAuthenticated, IsOwner | IsModer)
-        elif self.action == 'destroy':
+        elif self.action in ['retrieve']:
+            self.permission_classes = (IsAuthenticated,)
+        elif self.action == ['destroy', 'update']:
             self.permission_classes = (IsAuthenticated | IsOwner,)
         return super().get_permissions()
 
@@ -87,7 +88,6 @@ class SubscriptionCreateAPIView(APIView):
         user = self.request.user
         course_id = self.request.data.get('course')
         course = get_object_or_404(Course, pk=course_id)
-
         subs_item = Subscription.objects.filter(user=user, course=course)
         if subs_item.exists():
             subs_item.delete()
@@ -95,4 +95,4 @@ class SubscriptionCreateAPIView(APIView):
         else:
             Subscription.objects.create(user=user, course=course)
             message = 'Подписка добавлена'
-        return Response({"message": message})
+        return Response({"message": message}, status=status.HTTP_201_CREATED)

@@ -9,7 +9,7 @@ class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
-        validators = [YoutubeValidator(field='video_link')]
+        validators = [YoutubeValidator(field='link_to_video')]
 
 
 class CourseSerializer(ModelSerializer):
@@ -29,7 +29,7 @@ class CourseCountSerializer(ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('title', 'preview', 'description', 'quantity_lesson', 'lessons')
+        fields = ('name', 'preview_course', 'description', 'quantity_lesson', 'lessons')
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):
