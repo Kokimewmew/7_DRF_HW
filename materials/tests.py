@@ -110,8 +110,8 @@ class CourseTestCase(APITestCase):
         data = {
             "name": "Английский"
         }
-        response = self.client.patch(url, data)
-        print(response.json())
+        response = self.client.get(url, data)
+        #  print(response.json())
         data = response.json()
         self.assertEqual(
             response.status_code, status.HTTP_200_OK
