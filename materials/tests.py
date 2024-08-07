@@ -111,6 +111,7 @@ class CourseTestCase(APITestCase):
             "name": "Английский"
         }
         response = self.client.patch(url, data)
+        print(response.json())
         data = response.json()
         self.assertEqual(
             response.status_code, status.HTTP_200_OK
@@ -153,7 +154,7 @@ class SubscriptionTestCase(APITestCase):
         }
         response = self.client.post(url, data)
         self.assertEqual(
-            response.status_code, status.HTTP_200_OK
+            response.status_code, status.HTTP_201_CREATED
         )
         self.assertEqual(
             Subscription.objects.all()[0].course, self.course
@@ -163,7 +164,7 @@ class SubscriptionTestCase(APITestCase):
         url = reverse('materials:subscription_create')
         response = self.client.post(url, {'course': self.course.pk})
         self.assertEqual(
-            response.status_code, status.HTTP_200_OK
+            response.status_code, status.HTTP_201_CREATED
         )
         self.assertEqual(
             Subscription.objects.count(), 0
