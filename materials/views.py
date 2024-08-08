@@ -31,15 +31,14 @@ class CourseViewSet(ModelViewSet):
     def get_permissions(self):
         if self.action == 'create':
             self.permission_classes = (~IsModer, IsAuthenticated,)
-        elif self.action in ['retrieve']:
-            self.permission_classes = (IsAuthenticated,)
-        elif self.action == ['destroy', 'update']:
+        elif self.action in ['retrieve', 'update']:
+            self.permission_classes = (IsAuthenticated, IsOwner | IsModer)
+        elif self.action == 'destroy':
             self.permission_classes = (IsAuthenticated | IsOwner,)
         return super().get_permissions()
 
     def perform_update(self, serializer):
         instance = serializer.save()
-        update_notification.delay(instance.pk)
         return instance
 
 
