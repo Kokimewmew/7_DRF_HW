@@ -75,7 +75,7 @@ class LessonTestCase(APITestCase):
 class CourseTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create(email='admin@example.com')
-        self.course = Course.objects.create(name="Английский")
+        self.course = Course.objects.create(name="Английский", owner=self.user)
         self.lesson = Lesson.objects.create(name="Present Simple", course=self.course, owner=self.user)
         self.client.force_authenticate(user=self.user)
 
@@ -110,7 +110,7 @@ class CourseTestCase(APITestCase):
         data = {
             "name": "Английский"
         }
-        response = self.client.get(url, data)
+        response = self.client.patch(url, data)
         #  print(response.json())
         data = response.json()
         self.assertEqual(
