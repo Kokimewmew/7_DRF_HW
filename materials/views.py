@@ -14,10 +14,10 @@ from materials.serializers import CourseSerializer, LessonSerializer, CourseCoun
 from users.permissions import IsModer, IsOwner
 from materials.tasks import update_notification
 
+
 @method_decorator(name='list', decorator=swagger_auto_schema(
     operation_description="description from swagger_auto_schema via method_decorator"
 ))
-
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
@@ -44,6 +44,7 @@ class CourseViewSet(ModelViewSet):
 
     def perform_update(self, serializer):
         instance = serializer.save()
+        update_notification.delay(instance.pk)
         return instance
 
 
